@@ -1,6 +1,9 @@
 const http =require('http');
 const fs = require('fs');
+const _= require('lodash');
 const server = http.createServer((req, res) => {
+    const num = _.random(0, 20);
+    console.log(num);
     console.log(req.url, req.method);
 
     res.setHeader('Content-Type', 'text/html');
@@ -9,12 +12,19 @@ const server = http.createServer((req, res) => {
     switch(req.url) {
         case '/':
             path += 'index.html';
+            res.statusCode = 200;
             break;
             case '/about':
                 path += 'about.html';
-                break;
-                default:
+                res.statusCode = 200;
+                break; 
+            case '/about-me': 
+                res.statusCode = 301;
+                res.setHeader('Location', '/about');
+                res.end();
+                    default:
                     path += '404.html'
+                    res.statusCode = 404;
                     break;
     }
    fs.readFile(path, (err,data) => {
