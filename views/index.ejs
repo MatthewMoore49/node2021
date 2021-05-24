@@ -14,6 +14,32 @@
       <% } %>
   </div>
   <%- include("./partials/footer.ejs") %>
+  <% if (blogs.length > 0) { %>
+    <% blogs.forEach(blog => { %>
+      <a>
+        <h3 class="title"><%= blog.title %></h3>
+        <p class="snippet"><%= blog.snippet %></p>
+      </a>
+    <% }) %>
+  <% } else { %>
+    <p>There are no blogs to display...</p>
+  <% } %>
+
+We want the <a> to forward to a dynamic variable on the blog and that is the ID.
+
+We will forward to “/blogs/<%=blog._id %> and also add a  class of “single” for CSS that will be taken care of later.
+  <h2>All Blogs</h2>
+
+  <% if (blogs.length > 0) { %>
+    <% blogs.forEach(blog => { %>
+      <a class="single" href="/blogs/<%= blog._id%> ">
+        <h3 class="title"><%= blog.title %></h3>
+        <p class="snippet"><%= blog.snippet %></p>
+      </a>
+    <% }) %>
+  <% } else { %>
+    <p>There are no blogs to display...</p>
+  <% } %>
 
 </body>
 </html>
